@@ -1,0 +1,57 @@
+<% 
+# detail= $client.search("to:digitalocean ", result_type: "recent").take(3).collect do |tweet|
+#   "#{tweet.user.screen_name}: #{tweet.text}"
+# end
+%>
+<table id="example" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Profile</th>>
+      <th>Tweet Text</th>
+      <th>Retweet</th>
+      <th>Favourite</th>
+<%= form_tag(products_path, :method => "get", id: "search-form") do %>
+<%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+<%= submit_tag "Search" %>
+<% end %> 
+
+
+
+<!--
+<% if @products.present? %>
+  <%= render @products %>
+<% else %>
+  <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
+<% end %> -->
+  </tr>
+  </thead> 
+
+
+
+  <tbody>
+  <%= paginate @tweets %>
+
+    <% if @tweets.present? %>
+      <% @tweets.each do |tweet| %>
+        <tr>
+          <td>
+            <%= (tweet[:entities][:user_mentions].first[:name] rescue "NA.") %>
+          </td>
+          <td>
+            <%= image_tag tweet[:user][:profile_image_url]%>
+          </td>
+          <td><%= tweet[:text] %></td>
+          <td><%= tweet[:retweet_count] %></td>
+          <td><%= tweet[:favorite_count] %></td>
+          <!-- <img src= "Smiley face" width="42" height="42"] >  -->       </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="2">No Tweets Found</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
